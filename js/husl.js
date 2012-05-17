@@ -3,29 +3,39 @@
   var conv, dotProduct, f, f_inv, fromLinear, huslToRgb, lab_e, lab_k, m, m_inv, maxChroma, refU, refV, refX, refY, refZ, rgbPrepare, rgbToHusl, root, round, stylus, toLinear,
     __slice = [].slice;
 
-  maxChroma = function(L, H) {
-    var C, bottom, cosH, hrad, lbottom, m1, m2, m3, rbottom, result, row, sinH, sub1, sub2, top, _i, _len;
+  maxChroma = function(L, H, debug) {
+    var C, bottom, cosH, hrad, lbottom, list, m1, m2, m3, rbottom, result, row, sinH, sub1, sub2, t, top, _i, _j, _len, _len1, _ref;
+    if (debug == null) {
+      debug = false;
+    }
     hrad = H / 360 * 2 * Math.PI;
     sinH = Math.sin(hrad);
     cosH = Math.cos(hrad);
     sub1 = Math.pow(L + 16, 3) / 1560896;
     sub2 = sub1 > 0.008856 ? sub1 : L / 903.3;
     result = Infinity;
+    list = [];
     for (_i = 0, _len = m.length; _i < _len; _i++) {
       row = m[_i];
       m1 = row[0], m2 = row[1], m3 = row[2];
-      top = (0.99914902410024 * m1 + 1.05121573691680 * m2 + 1.14459523831237 * m3) * L;
-      rbottom = (0.86329789712775 * m3 - 0.17265957942555 * m2) * sinH;
-      lbottom = (0.12949468478388 * m3 - 0.38848405435164 * m1) * cosH;
-      bottom = rbottom + lbottom;
-      C = (top * sub2 - 1.05121573691680 * L) / (bottom * sub2 + 1.7265957942555 * sinH);
-      if ((0 < C && C < result)) {
-        result = C;
+      top = (0.99915 * m1 + 1.05122 * m2 + 1.14460 * m3) * sub2;
+      rbottom = 0.86330 * m3 - 0.17266 * m2;
+      lbottom = 0.12949 * m3 - 0.38848 * m1;
+      bottom = (rbottom * sinH + lbottom * cosH) * sub2;
+      _ref = [0, 1];
+      for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+        t = _ref[_j];
+        C = L * (top - 1.05122 * t) / (bottom + 0.17266 * sinH * t);
+        if ((0 < C && C < result)) {
+          result = C;
+        }
+        if (debug) {
+          list.push(C);
+        }
       }
-      C = top / bottom;
-      if ((0 < C && C < result)) {
-        result = C;
-      }
+    }
+    if (debug) {
+      return list;
     }
     return result;
   };
@@ -98,7 +108,7 @@
   };
 
   rgbPrepare = function(tuple) {
-    var ch, n, _i, _len, _results;
+    var ch, n, _i, _j, _len, _len1, _results;
     tuple = (function() {
       var _i, _len, _results;
       _results = [];
@@ -108,9 +118,15 @@
       }
       return _results;
     })();
-    _results = [];
     for (_i = 0, _len = tuple.length; _i < _len; _i++) {
       ch = tuple[_i];
+      if (ch < 0 || ch > 1) {
+        throw new Error("Illegal rgb value");
+      }
+    }
+    _results = [];
+    for (_j = 0, _len1 = tuple.length; _j < _len1; _j++) {
+      ch = tuple[_j];
       _results.push(Math.round(ch * 255));
     }
     return _results;
@@ -261,8 +277,16 @@
     };
   } catch (_error) {}
 
-  root.husl = function(H, S, L) {
-    return conv.rgb.hex(huslToRgb(H, S, L));
+  root.husl = function(H, S, L, noHex) {
+    var rgb;
+    if (noHex == null) {
+      noHex = false;
+    }
+    rgb = huslToRgb(H, S, L);
+    if (noHex) {
+      return rgb;
+    }
+    return conv.rgb.hex(rgb);
   };
 
   root.rgb = function(R, G, B) {
