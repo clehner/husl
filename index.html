@@ -4,16 +4,15 @@
   <title>HUSL - HSL for human beings</title>
   <meta name="description" content="">
   <meta name="author" content="Alexei Boronine">
-  <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="http://yandex.st/highlightjs/6.2/styles/default.min.css">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://yandex.st/highlightjs/6.2/styles/monokai.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <a name="top"></a>
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-        <span class="brand"><em>HUSL</em></span>
         <ul class="nav">
           <li>
             <a href="#overview">Overview</a>
@@ -28,20 +27,37 @@
             <a href="#usage">Usage</a>
           </li>
         </ul>
+        <ul class="nav pull-right">
+          <li><a href="https://raw.github.com/boronine/husl/master/husl.js">husl.js</a></li>
+          <li><a href="https://raw.github.com/boronine/husl/master/husl.min.js">husl.min.js</a></li>
+        </ul>
       </div>
     </div>
   </div>
+  <a href="https://github.com/boronine/husl"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
   <div class="container">
     <header class="top">
       <h1><em>HUSL</em></h1>
-      <h2><em>HSL for human beings</em></h2>
+      <h2 class="tagline">
+        <em>
+          <span>H</span><span>u</span><span>m</span><span>a</span><span>n</span><span>-</span><span>f</span><span>r</span><span>i</span><span>e</span><span>n</span><span>d</span><span>l</span><span>y</span>
+          <span>H</span><span>S</span><span>L</span>
+        </em>
+      </h2>
+      <div class="row">
+        <div class="span6 offset3">
+          <pre class="tagline-code"><code class="javascript">$('.tagline span').each(function(index){
+  $(this).css('color', $.husl.husl(index / 17 * 360, 90, 50));
+});</code></pre>
+        </div>
+      </div>
     </header>
     <hr/>
     <div class="row">
       <div class="span8">
         <a name="overview" class="goto"></a>
         <h2>What is <abbr class="initialism">HUSL</abbr>?</h2>
-        <p><abbr class="initialism">HUSL</abbr> is a <a href="http://boronine.com/2012/03/26/Color-Spaces-for-Human-Beings/">human-oriented</a> replacement for the <abbr class="initialism">HSL</abbr> color space. <abbr class="initialism">HSL</abbr> was designed back in the 70s to be computationally cheap. It is but a clever geometric transformation of the <abbr class="initialism">RGB</abbr> color space and it does not take into account the complexities of human color vision.</p>
+        <p><abbr class="initialism">HUSL</abbr> is a <a href="http://boronine.com/2012/03/26/Color-Spaces-for-Human-Beings/">human-friendly</a> replacement for the <abbr class="initialism">HSL</abbr> color space. <abbr class="initialism">HSL</abbr> was designed back in the 70s to be computationally cheap. It is but a clever geometric transformation of the <abbr class="initialism">RGB</abbr> color space and it does not take into account the complexities of human color vision.</p>
         <p>There have long existed color spaces designed for perceptual uniformity. One of these color spaces is <a href="http://en.wikipedia.org/wiki/CIELUV"><abbr class="initialism">CIELUV</abbr></a> (and its cylindrically shaped brother <abbr class="initialism">CIE LCh<sub>uv</sub></abbr>). Like <abbr class="initialism">HSL</abbr>, it defines hue and lightness, but instead of saturation it defines chroma. The problem with its chroma component is that it doesn't fit into a specific range. This makes it very hard to define colors programmatically. <strong><abbr class="husl initialism">HUSL</abbr> is a modified version of the <abbr class="initialism">CIE LCh<sub>uv</sub></abbr> color space with a new saturation component</strong>.</p>
       </div>
       <div class="span4">
@@ -183,7 +199,7 @@ $('#rainbow-hsl div').each(function(index) {
     <div class="row">
       <div class="span6">
         <p><strong><abbr class="initialism">HUSL</abbr> is a work in progress.</strong> It works well already, but has some problems too. The project uses <a href="http://semver.org/">semantic versioning</a>, so any backwards-incompatible change will be marked clearly (by incrementing the x in x.y.z). I am not an expert on colors, so I greatly welcome anyone's insight. You can fork this project on <a href="https://github.com/boronine/husl">GitHub</a> or talk to me via <a href="mailto://alexei.boronine@gmail.com">email</a>. The code is released under the <a href="https://raw.github.com/boronine/husl/master/LICENSE">MIT</a> license, the math behind it is in the public domain.</p>
-        <p>I think <abbr class="initialism">HUSL</abbr> could benefit from a better scaling function, though I haven't found one that is simple and would work well. Perhaps we can try taking <abbr class="initialism">CIECAM02</abbr> as the base color space, since it is more recent that <abbr class="initialism">CIELUV</abbr>.</p>
+        <p>I think <abbr class="initialism">HUSL</abbr> could benefit from a better scaling function, I haven't yet found one that is simple and would work well. Another option for further development is to use <abbr class="initialism">CIECAM02</abbr> as the base color space, since it is more recent that <abbr class="initialism">CIELUV</abbr>.</p>
       </div>
       <div class="span3">
         <h4 class="center">Lightness: 10%</h4>
@@ -203,7 +219,7 @@ $('#rainbow-hsl div').each(function(index) {
           <li>Scaling the saturation to fit inside that chroma range (currently linear)</li>
         </ol>
         <p>Finding the maximum chroma involves building three functions that take <abbr class="initialism">CIE&nbsp;LCh<sub>uv</sub></abbr>'s components as input and return <abbr class="initialism">RGB</abbr> channel values, one for each channel. We equate each to 1 and 0, and solve the 6 resulting equations for C. When we plot the 6 solutions with a fixed lightness and hue for x, we get the picture on the right. As expected, it looks like <abbr class="initialism">CIE&nbsp;LCh<sub>uv</sub></abbr>.</p>
-        <p>I used <a href="http://maxima.sourceforge.net/">Maxima</a> to build and solve these equations, and <a href="https://github.com/boronine/husl/blob/master/colors.wxm">a wxMaxima file</a> is bundled with the code.</p>
+        <p>I used <a href="http://maxima.sourceforge.net/">Maxima</a> to build and solve these equations, and <a href="https://github.com/boronine/husl/blob/master/math.wxm">a wxMaxima file</a> is bundled with the code.</p>
       </div>
       <div class="span6">
         <img src="img/plot.png"/>
@@ -213,7 +229,7 @@ $('#rainbow-hsl div').each(function(index) {
     <h1>Usage</h1>
     <div class="row">
       <div class="span8">
-        <p><abbr class="initialism">HUSL</abbr> is written in CoffeeScript, you can use it serverside with <code>npm install husl</code> or clientside as a jQuery plugin (<code>$.husl</code>).</p>
+        <p><abbr class="initialism">HUSL</abbr> is written in CoffeeScript, you can use it server-side with <code>npm install husl</code> or client-side as a jQuery plugin&nbsp;(<code>$.husl</code>).</p>
         <dl>
           <dt>husl(hue, saturation, lightness, [rgb = false])</dt>
           <dd><i>hue</i> is a number between 0 and 360, <i>saturation</i> and <i>lightness</i> are numbers between 0 and 100. This function returns the resulting color as a hex string, unless <i>rgb</i> is passed as <i>true</i>, in which case it returns an array of <abbr class="initialism">RGB</abbr> components.</dd>
@@ -236,18 +252,19 @@ app.use(stylus.middleware({
   }
 });</code></pre>
         <p>Now you can use <abbr class="initialism">HUSL</abbr> in your stylesheets!</p>
-        <pre>.tinted(hue)
+        <pre><code>.tinted(hue)
   background-color husl(hue, 90, 80)
-  color husl(hue, 90, 10)</div>
+  color husl(hue, 90, 10)</code></pre>
+      </div>
     </div>
     <hr/>
-    <footer>© Copyright 2012 by Alexei Boronine</footer>
+    <footer>© Copyright 2012 by Alexei Boronine. (<a href="https://twitter.com/#!/boronine">@boronine</a>)</footer>
   </div>
   <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
   <script src="js/jquery-1.7.2.min.js"></script>
   <script src="js/colorspaces.min.js"></script>
   <script src="js/husl.js"></script>
-  <script src="js/color-demo.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

@@ -21,6 +21,9 @@ function hslToHex(h, s, l) {
 	return $.colorspaces.converter('sRGB', 'hex')(rgb);
 }
 $(function() {
+	$('.tagline span').each(function(index){
+		$(this).css('color', $.husl.husl(index / 17 * 360, 90, 50));
+	})
 	var L = 50;
 	function set($canvas, func) {
 		var width = $canvas.width();
