@@ -24,6 +24,9 @@
           <li>
             <a href="#status">Status</a>
           </li>
+          <li>
+            <a href="#usage">Usage</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -180,6 +183,7 @@ $('#rainbow-hsl div').each(function(index) {
     <div class="row">
       <div class="span6">
         <p><strong><abbr class="initialism">HUSL</abbr> is a work in progress.</strong> It works well already, but has some problems too. The project uses <a href="http://semver.org/">semantic versioning</a>, so any backwards-incompatible change will be marked clearly (by incrementing the x in x.y.z). I am not an expert on colors, so I greatly welcome anyone's insight. You can fork this project on <a href="https://github.com/boronine/husl">GitHub</a> or talk to me via <a href="mailto://alexei.boronine@gmail.com">email</a>. The code is released under the <a href="https://raw.github.com/boronine/husl/master/LICENSE">MIT</a> license, the math behind it is in the public domain.</p>
+        <p>I think <abbr class="initialism">HUSL</abbr> could benefit from a better scaling function, though I haven't found one that is simple and would work well. Perhaps we can try taking <abbr class="initialism">CIECAM02</abbr> as the base color space, since it is more recent that <abbr class="initialism">CIELUV</abbr>.</p>
       </div>
       <div class="span3">
         <h4 class="center">Lightness: 10%</h4>
@@ -190,8 +194,54 @@ $('#rainbow-hsl div').each(function(index) {
         <canvas id="husl_high" height="150" width="270" class="demo"></canvas>
       </div>
     </div>
+    <h2>How does <abbr class="initialism">HUSL</abbr> currently work?</h2>
+    <div class="row">
+      <div class="span6">
+        <p><abbr class="initialism">HUSL</abbr> is defined as a conversion to and from <abbr class="initialism">CIE&nbsp;LCh<sub>uv</sub></abbr>. This conversion is a two step process. It requires:</p>
+        <ol>
+          <li>Finding the maximum chroma for a given lightness and hue</li>
+          <li>Scaling the saturation to fit inside that chroma range (currently linear)</li>
+        </ol>
+        <p>Finding the maximum chroma involves building three functions that take <abbr class="initialism">CIE&nbsp;LCh<sub>uv</sub></abbr>'s components as input and return <abbr class="initialism">RGB</abbr> channel values, one for each channel. We equate each to 1 and 0, and solve the 6 resulting equations for C. When we plot the 6 solutions with a fixed lightness and hue for x, we get the picture on the right. As expected, it looks like <abbr class="initialism">CIE&nbsp;LCh<sub>uv</sub></abbr>.</p>
+        <p>I used <a href="http://maxima.sourceforge.net/">Maxima</a> to build and solve these equations, and <a href="https://github.com/boronine/husl/blob/master/colors.wxm">a wxMaxima file</a> is bundled with the code.</p>
+      </div>
+      <div class="span6">
+        <img src="img/plot.png"/>
+      </div>
+    </div>
+    <a name="usage"></a>
+    <h1>Usage</h1>
+    <div class="row">
+      <div class="span8">
+        <p><abbr class="initialism">HUSL</abbr> is written in CoffeeScript, you can use it serverside with <code>npm install husl</code> or clientside as a jQuery plugin (<code>$.husl</code>).</p>
+        <dl>
+          <dt>husl(hue, saturation, lightness, [rgb = false])</dt>
+          <dd><i>hue</i> is a number between 0 and 360, <i>saturation</i> and <i>lightness</i> are numbers between 0 and 100. This function returns the resulting color as a hex string, unless <i>rgb</i> is passed as <i>true</i>, in which case it returns an array of <abbr class="initialism">RGB</abbr> components.</dd>
+          <dt>rgb(red, green, blue)</dt>
+          <dd><i>red</i>, <i>green</i> and <i>blue</i> are passed as numbers between 0 and 1. This function returns an array of <abbr class="initialism">HUSL</abbr> components as defined above.</dd>
+          <dt>hex(hex)</dt>
+          <dd>Like the above, except the color is passed in as a hex string.</dd>
+        </dl>
+        <p><abbr class="initialism">HUSL</abbr> can also be used as a <a href="http://learnboost.github.com/stylus/">Stylus</a> plugin. To use from command line, run stylus like this:</p>
+        <pre><code class="bash">stylus &lt; input.styl &gt; output.css -u /path/to/husl.js</code></pre>
+        <p>To use programmatically, do this:</p>
+        <pre><code class="javascript">var husl = require('husl');
+app.use(stylus.middleware({
+  src: __dirname + '/app/views',
+  dest: __dirname + '/public',
+  compile: function(str, path) {
+    return stylus(str)
+      .set('filename', path)
+      .use(husl());
+  }
+});</code></pre>
+        <p>Now you can use <abbr class="initialism">HUSL</abbr> in your stylesheets!</p>
+        <pre>.tinted(hue)
+  background-color husl(hue, 90, 80)
+  color husl(hue, 90, 10)</div>
+    </div>
     <hr/>
-    <footer>Alexei Boronine</footer>
+    <footer>© Copyright 2012 by Alexei Boronine</footer>
   </div>
   <script src="http://yandex.st/highlightjs/6.2/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
