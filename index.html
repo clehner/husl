@@ -21,6 +21,9 @@
           <li>
             <a href="#comparison">Comparison</a>
           </li>
+          <li>
+            <a href="#status">Status</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -35,7 +38,7 @@
       <div class="span8">
         <a name="overview" class="goto"></a>
         <h2>What is <abbr class="initialism">HUSL</abbr>?</h2>
-        <p><abbr class="initialism">HUSL</abbr> is a replacement for the <abbr class="initialism">HSL</abbr> color space, which has <a href="http://boronine.com/2012/03/26/Color-Spaces-for-Human-Beings/">outlived itself.</a> It was designed back in the 70s to be computationally cheap. It is but a clever geometric transformation of the <abbr class="initialism">RGB</abbr> color space and it does not take into account the complexities of human color vision.</p>
+        <p><abbr class="initialism">HUSL</abbr> is a <a href="http://boronine.com/2012/03/26/Color-Spaces-for-Human-Beings/">human-oriented</a> replacement for the <abbr class="initialism">HSL</abbr> color space. <abbr class="initialism">HSL</abbr> was designed back in the 70s to be computationally cheap. It is but a clever geometric transformation of the <abbr class="initialism">RGB</abbr> color space and it does not take into account the complexities of human color vision.</p>
         <p>There have long existed color spaces designed for perceptual uniformity. One of these color spaces is <a href="http://en.wikipedia.org/wiki/CIELUV"><abbr class="initialism">CIELUV</abbr></a> (and its cylindrically shaped brother <abbr class="initialism">CIE LCh<sub>uv</sub></abbr>). Like <abbr class="initialism">HSL</abbr>, it defines hue and lightness, but instead of saturation it defines chroma. The problem with its chroma component is that it doesn't fit into a specific range. This makes it very hard to define colors programmatically. <strong><abbr class="husl initialism">HUSL</abbr> is a modified version of the <abbr class="initialism">CIE LCh<sub>uv</sub></abbr> color space with a new saturation component</strong>.</p>
       </div>
       <div class="span4">
@@ -98,7 +101,7 @@
         <p>The chroma component of <abbr class="initialism">CIE&nbsp;LCh<sub>uv</sub></abbr> is absolute. Unlike saturation you can use it to compare two different colors. The downside is that each color has a different chroma range.</p>
       </div>
     </div>
-    <h1>Lightness</h1>
+    <h2>Lightness</h2>
     <div class="row">
       <div class="span4">
         <canvas id="hsl_lightness" height="200" width="360" class="demo"></canvas>
@@ -138,7 +141,7 @@ $(...).css('background-color', hslToHex(randomHue(), 90, 60));</code></pre>
         <div class="demo">Lightness: 60%</div>
       </div>
     </div>
-    <h1>Hue</h1>
+    <h2>Hue</h2>
     <div class="row">
       <div class="span8">
         <p><abbr class="initialism">HUSL</abbr>'s uniform hue means random colors will be truly random. Iterating over colors will also produce better results.</p>
@@ -158,7 +161,7 @@ $('#rainbow-hsl div').each(function(index) {
         <h3 class="center"><abbr class="initialism">HSL</abbr></h3>
       </div>
     </div>
-    <h1>Chroma</h1>
+    <h2>Chroma</h2>
     <div class="row">
       <div class="span4">
         <canvas id="hsl_chroma" height="200" width="360" class="demo"></canvas>
@@ -170,6 +173,21 @@ $('#rainbow-hsl div').each(function(index) {
       <div class="span4">
         <canvas id="cielchuv_chroma" height="200" width="360" class="demo"></canvas>
         <p>The chroma component of <abbr class="initialism">CIE&nbsp;LCh<sub>uv</sub></abbr> is absolute. Unlike saturation you can use it to compare two different colors. The downside is that each color has a different chroma range.</p>
+      </div>
+    </div>
+    <a name="status"></a>
+    <h1>Status</h1>
+    <div class="row">
+      <div class="span6">
+        <p><strong><abbr class="initialism">HUSL</abbr> is a work in progress.</strong> It works well already, but has some problems too. The project uses <a href="http://semver.org/">semantic versioning</a>, so any backwards-incompatible change will be marked clearly (by incrementing the x in x.y.z). I am not an expert on colors, so I greatly welcome anyone's insight. You can fork this project on <a href="https://github.com/boronine/husl">GitHub</a> or talk to me via <a href="mailto://alexei.boronine@gmail.com">email</a>. The code is released under the <a href="https://raw.github.com/boronine/husl/master/LICENSE">MIT</a> license, the math behind it is in the public domain.</p>
+      </div>
+      <div class="span3">
+        <h4 class="center">Lightness: 10%</h4>
+        <canvas id="husl_low" height="150" width="270" class="demo"></canvas>
+      </div>
+      <div class="span3">
+        <h4 class="center">Lightness: 95%</h4>
+        <canvas id="husl_high" height="150" width="270" class="demo"></canvas>
       </div>
     </div>
     <hr/>

@@ -29,7 +29,7 @@ $(function() {
 		var imageData = c.createImageData(width, height);
 		for (var x = 0; x < width; x ++) {
 			for (var y = 0; y < height; y ++) {
-				var rgb = func(x, y);
+				var rgb = func(x / width * 360, y / height * 100);
 				var r = rgb[0] * 256;
 				var g = rgb[1] * 256;
 				var b = rgb[2] * 256;
@@ -43,43 +43,49 @@ $(function() {
 		c.putImageData(imageData, 0, 0);
 	}
 	function cielchuv(x, y) {
-		var color = $.colorspaces.make_color('CIELCHuv', [L, 200 - y, x]);
+		var color = $.colorspaces.make_color('CIELCHuv', [L, 200 - y * 2, x]);
 		if (!color.is_displayable()) rgb = [0, 0, 0];
 		else rgb = color.as('sRGB');
 		return rgb;
 	}
 	function husl(x, y) {
-		return $.husl.husl(x, (200 - y) / 2, L, true)
+		return $.husl.husl(x, 100 - y, L, true)
 	}
 	function hsl(x, y) {
-		return hsl_to_rgb(x, (200 - y) / 200, L / 100)
+		return hsl_to_rgb(x, (100 - y) / 100, L / 100)
 	}
 	function hsl_lightness(x, y) {
-		var rgb = hsl_to_rgb(x, (200 - y) / 200, L / 100)
+		var rgb = hsl_to_rgb(x, (100 - y) / 100, L / 100)
 		var color = $.colorspaces.make_color('sRGB', rgb);
 		var l = color.as('CIELUV')[0] / 100;
 		return [l, l, l];
 	}
 	function hsl_chroma(x, y) {
-		var rgb = hsl_to_rgb(x, (200 - y) / 200, L / 100)
+		var rgb = hsl_to_rgb(x, (100 - y) / 100, L / 100)
 		var color = $.colorspaces.make_color('sRGB', rgb);
 		var C = color.as('CIELCHuv')[1];
 		var red = $.colorspaces.make_color('CIELCHuv', [L, C, 0]);
 		return red.as('sRGB');
 	}
 	function husl_chroma(x, y) {
-		var rgb = $.husl.husl(x, (200 - y) / 2, L, true)
+		var rgb = $.husl.husl(x, 100 - y, L, true)
 		var color = $.colorspaces.make_color('sRGB', rgb);
 		var C = color.as('CIELCHuv')[1];
 		var red = $.colorspaces.make_color('CIELCHuv', [L, C, 0]);
 		return red.as('sRGB');
 	}
 	function cielchuv_chroma(x, y) {
-		var color = $.colorspaces.make_color('CIELCHuv', [L, 200 - y, x]);
+		var color = $.colorspaces.make_color('CIELCHuv', [L, 200 - y * 2, x]);
 		if (!color.is_displayable()) return [0, 0, 0];
 		var C = color.as('CIELCHuv')[1];
 		var red = $.colorspaces.make_color('CIELCHuv', [L, C, 0]);
 		return red.as('sRGB');
+	}
+	function husl_low(x, y) {
+		return $.husl.husl(x, 100 - y, 10, true)
+	}
+	function husl_high(x, y) {
+		return $.husl.husl(x, 100 - y, 95, true)
 	}
 	set($('#cielchuv'), cielchuv);
 	set($('#husl'), husl);
@@ -88,6 +94,8 @@ $(function() {
 	set($('#hsl_chroma'), hsl_chroma);
 	set($('#husl_chroma'), husl_chroma);
 	set($('#cielchuv_chroma'), cielchuv_chroma);
+	set($('#husl_low'), husl_low);
+	set($('#husl_high'), husl_high);
 	function randomHue() {
 	  return Math.floor(Math.random() * 360);
 	}
