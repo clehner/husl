@@ -39,11 +39,12 @@ h4 {
 	text-align: center;
 }
 
-canvas.demo {
+img.demo {
 	border: 6px solid #ccc;
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
+	margin: 5px;
 }
 
 div.demo {

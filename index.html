@@ -107,23 +107,23 @@
     <div class="row">
       <div class="span4">
         <h2 class="center">HSL</h2>
-        <canvas id="hsl" height="200" width="360" class="demo"></canvas>
+        <img src="img/demo-hsl.png" class="demo"/>
       </div>
       <div class="span4">
         <h2 class="center">HUSL</h2>
-        <canvas id="husl" height="200" width="360" class="demo"></canvas>
+        <img src="img/demo-husl.png" height="200" width="360" class="demo"/>
         <p><abbr class="initialism">HUSL</abbr> preserves the lightness and hue components of <abbr class="initialism">CIE&nbsp;LCh<sub>uv</sub></abbr> and stretches its chroma vertically so that every color has the same range, defined as a percentage.</p>
       </div>
       <div class="span4">
         <h2 class="center">CIE LCh<sub>uv</sub></h2>
-        <canvas id="cielchuv" height="200" width="360" class="demo"></canvas>
+        <img src="img/demo-cielchuv.png" class="demo"/>
         <p>The chroma component of <abbr class="initialism">CIE&nbsp;LCh<sub>uv</sub></abbr> is absolute. Unlike saturation you can use it to compare two different colors. The downside is that each color has a different chroma range.</p>
       </div>
     </div>
     <h2>Lightness</h2>
     <div class="row">
       <div class="span4">
-        <canvas id="hsl_lightness" height="200" width="360" class="demo"></canvas>
+        <img src="img/demo-hsl-lightness.png" class="demo"/>
       </div>
       <div class="span6">
         <p>Have you ever tried to use HSL to work out contrast? Define background and text colors? I know I have, with horrible results.</p>
@@ -186,11 +186,11 @@ $('#rainbow-hsl div').each(function(index) {
         <canvas id="hsl_chroma" height="200" width="360" class="demo"></canvas>
       </div>
       <div class="span4">
-        <canvas id="husl_chroma" height="200" width="360" class="demo"></canvas>
+        <img src="img/demo-husl-chroma.png" class="demo"/>
         <p>Both <abbr class="initialism">HSL</abbr> and <abbr class="initialism">HUSL</abbr> have a distorted chroma map, this is a trade-off of their convenient shape. <abbr class="initialism">HUSL</abbr>'s chroma has more sudden shifts, perhaps it can be improved with a better scaling function. <a href="https://github.com/boronine/husl">Fork my code!</a></p>
       </div>
       <div class="span4">
-        <canvas id="cielchuv_chroma" height="200" width="360" class="demo"></canvas>
+        <img src="img/demo-cielchuv-chroma.png" class="demo"/>
         <p>The chroma component of <abbr class="initialism">CIE&nbsp;LCh<sub>uv</sub></abbr> is absolute. Unlike saturation you can use it to compare two different colors. The downside is that each color has a different chroma range.</p>
       </div>
     </div>
@@ -203,11 +203,11 @@ $('#rainbow-hsl div').each(function(index) {
       </div>
       <div class="span3">
         <h4 class="center">Lightness: 10%</h4>
-        <canvas id="husl_low" height="150" width="270" class="demo"></canvas>
+        <img src="img/demo-husl-low.png" class="demo"/>
       </div>
       <div class="span3">
         <h4 class="center">Lightness: 95%</h4>
-        <canvas id="husl_high" height="150" width="270" class="demo"></canvas>
+        <img src="img/demo-husl-high.png" class="demo"/>
       </div>
     </div>
     <h2>How does <abbr class="initialism">HUSL</abbr> currently work?</h2>
