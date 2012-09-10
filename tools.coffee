@@ -1,12 +1,12 @@
 fs  = require 'fs'
 Png = require('png').Png
 Buffer = require('buffer').Buffer
-husl = require '../husl'
+husl = require '../src-javascript/husl'
 colorspaces = require 'colorspaces'
 onecolor = require 'onecolor'
 
 hslToRgb = (h, s, l) ->
-  c = onecolor ['HSL', h, s, l]
+  c = onecolor "hsl(#{h}, #{s}, #{l})"
   [c.red(), c.green(), c.blue()]
 
 chromaDemo = (color) ->
