@@ -6,6 +6,9 @@ colorspaces = require 'colorspaces'
 onecolor = require 'onecolor'
 
 hslToRgb = (h, s, l) ->
+  h *= 360
+  s *= 100
+  l *= 100
   c = onecolor "hsl(#{h}, #{s}, #{l})"
   [c.red(), c.green(), c.blue()]
 
