@@ -1,15 +1,20 @@
+p {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 footer {
   margin-bottom: 50px;
   margin-top: 100px;
 }
 .dark {
-  height: 500px;
+  height: 550px;
   position: absolute;
   width: 100%;
   background-color: #1b1b1b;
 }
 .dark header.top {
   margin: 40px;
+  margin-bottom: 70px;
 }
 .dark header.top h1 {
   color: #555;
@@ -25,7 +30,7 @@ footer {
 }
 .light {
   position: absolute;
-  top: 600px;
+  top: 650px;
   width: 100%;
 }
 abbr.initialism {
@@ -62,10 +67,23 @@ div.demo {
   width: 610px;
   height: 200px;
   margin: 0 auto;
+  color: #555;
 }
 #picker canvas {
   position: absolute;
   cursor: crosshair;
+}
+#picker .variants {
+  position: absolute;
+  width: 360px;
+  top: -30px;
+  text-align: center;
+}
+#picker .variants .choice {
+  color: #555;
+}
+#picker .variants .choice.selected {
+  color: #888;
 }
 #picker .slider {
   position: absolute;
@@ -75,13 +93,12 @@ div.demo {
 #picker .swatch {
   position: absolute;
   top: 0px;
-  left: 450px;
+  right: 0px;
   width: 160px;
   height: 160px;
   background-color: #555;
 }
 #picker .coordinates {
-  color: #555;
   position: absolute;
   top: 15px;
   left: 390px;
@@ -110,7 +127,7 @@ div.demo {
 }
 .navbar {
   position: absolute;
-  top: 500px;
+  top: 550px;
   z-index: 100;
 }
 .navbar.affix {
