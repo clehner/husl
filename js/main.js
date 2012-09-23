@@ -70,18 +70,21 @@
   });
 
   (function() {
-    var $canvas, $scope, ctx, current_H, current_L, current_S, redraw, redrawSwatch, update, variant;
+    var $canvas, $hex, $scope, ctx, current_H, current_L, current_S, redraw, redrawSwatch, update, variant;
     $canvas = $('#picker canvas');
     $scope = $('#picker .scope');
+    $hex = $('#picker .hex');
     ctx = $canvas[0].getContext('2d');
     current_H = 200;
     current_S = 80;
     current_L = 50;
     variant = $.husl;
+    $hex.click(function() {
+      return $(this).select();
+    });
     redrawSwatch = (function() {
-      var $channels, $hex, $swatch, c, chromaFromHex, conv, _i, _len, _ref;
+      var $channels, $swatch, c, chromaFromHex, conv, _i, _len, _ref;
       $swatch = $('#picker .swatch');
-      $hex = $('#picker .hex');
       $channels = {};
       _ref = ['R', 'G', 'B', 'H', 'S', 'L', 'C'];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -101,7 +104,7 @@
         $channels.B.text(Math.round(B * 255));
         hex = variant.toHex(current_H, current_S, current_L);
         $swatch.css('background-color', hex);
-        $hex.text(hex);
+        $hex.attr('value', hex);
         C = conv(hex)[1];
         $channels.C.text(Math.round(C));
         $scope.css('left', current_H - 5);

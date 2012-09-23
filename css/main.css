@@ -98,24 +98,48 @@ div.demo {
   height: 160px;
   background-color: #555;
 }
-#picker .coordinates {
+#picker .coordinate-names {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  cursor: default;
   position: absolute;
   top: 15px;
   left: 390px;
 }
-#picker .coordinates div {
-  position: relative;
-}
-#picker .coordinates div .c {
+#picker .coordinates {
   position: absolute;
-  left: 20px;
+  top: 15px;
+  left: 410px;
   color: #888;
+}
+#picker .chroma {
+  position: absolute;
+  bottom: 0px;
+  left: 390px;
+}
+#picker .chroma .C {
+  color: #888;
+}
+#picker .chroma .name {
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 #picker .hex {
+  width: 70px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: #888;
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  background: transparent;
+  border: 1px solid #555;
+  outline: none;
+  bottom: 0px;
+  right: 0px;
 }
 #picker .scope {
   cursor: crosshair;
