@@ -64,7 +64,7 @@ div.demo {
 }
 #picker {
   position: relative;
-  width: 610px;
+  width: 645px;
   height: 200px;
   margin: 0 auto;
   color: #555;
@@ -87,8 +87,9 @@ div.demo {
 }
 #picker .slider {
   position: absolute;
-  top: 10px;
-  left: 370px;
+  top: 30px;
+  left: 385px;
+  height: 140px;
 }
 #picker .swatch {
   position: absolute;
@@ -106,18 +107,18 @@ div.demo {
   cursor: default;
   position: absolute;
   top: 15px;
-  left: 390px;
+  left: 415px;
 }
 #picker .coordinates {
   position: absolute;
   top: 15px;
-  left: 410px;
+  left: 435px;
   color: #888;
 }
 #picker .chroma {
   position: absolute;
-  bottom: 0px;
-  left: 390px;
+  bottom: 3px;
+  left: 415px;
 }
 #picker .chroma .C {
   color: #888;
@@ -129,6 +130,21 @@ div.demo {
   -o-user-select: none;
   user-select: none;
 }
+#picker .icon {
+  display: block;
+  position: absolute;
+  left: 380px;
+}
+#picker .icon.full {
+  top: 5px;
+}
+#picker .icon.empty {
+  bottom: 5px;
+}
+#picker .icon path,
+#picker .icon circle {
+  fill: #666;
+}
 #picker .hex {
   width: 70px;
   padding-left: 5px;
@@ -138,7 +154,7 @@ div.demo {
   background: transparent;
   border: 1px solid #555;
   outline: none;
-  bottom: 0px;
+  bottom: 1px;
   right: 0px;
 }
 #picker .scope {
@@ -167,27 +183,23 @@ div.demo {
 .ui-slider {
   position: relative;
   text-align: left;
+  width: 6px;
+  border-radius: 3px;
+  background-color: #555;
 }
 .ui-slider .ui-slider-handle {
+  margin-left: -3px;
+  margin-bottom: -6px;
+  outline: none;
   position: absolute;
   z-index: 2;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
   cursor: default;
   background-color: #fff;
 }
-.ui-slider-vertical {
-  width: 6px;
-  border-radius: 3px;
-  height: 180px;
-  background-color: #555;
-}
-.ui-slider-vertical .ui-slider-handle {
-  border-radius: 5px;
-  margin-left: -2px;
-  margin-bottom: -5px;
-}
-.ui-slider-vertical .ui-slider-range {
+.ui-slider .ui-slider-range {
   left: 0;
   width: 100%;
 }
