@@ -361,13 +361,13 @@ app.use(stylus.middleware({
         <ul class="nav pull-right">
           <li><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="http://boronine.com/husl" data-via="boronine">Tweet</a></li>
           <li>
-            <a href="https://raw.github.com/boronine/husl/v0.0.1/husl.js">
-              husl.js (0.0.1)
+            <a href="https://raw.github.com/boronine/husl/v<%= @version %>/husl.js">
+              husl.js (<%= @version %>)
             </a>
           </li>
           <li>
-            <a href="https://raw.github.com/boronine/husl/v0.0.1/husl.min.js">
-              husl.min.js (0.0.1)
+            <a href="https://raw.github.com/boronine/husl/v<%= @version %>/husl.min.js">
+              husl.min.js (<%= @version %>)
             </a>
           </li>
         </ul>
