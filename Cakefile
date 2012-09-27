@@ -3,7 +3,7 @@
 fs  = require 'fs'
 Png = require('png').Png
 Buffer = require('buffer').Buffer
-meta = require './package.json'
+meta = require './node_modules/husl/package.json'
 
 husl = require 'husl'
 colorspaces = require 'colorspaces'
