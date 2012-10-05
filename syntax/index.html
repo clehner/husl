@@ -47,7 +47,7 @@
           var l = L[_.random(0, 2)];
           data['base0' + j.toString(16)] = $.husl.toHex(h, s, l);
         }
-        var url = 'http://base16-api.herokuapp.com/';
+        var url = 'http://base16-api.herokuapp.com/vim?';
         for (key in data) {
           $('.' + key).css('color', data[key]);
           $('.' + key + '-background').css('background-color', data[key]);
