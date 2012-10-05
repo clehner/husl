@@ -17,8 +17,15 @@
     <script src="../js/seedrandom.js"></script>
     <script src="../js/husl.min.js"></script>
     <script>
-      //Math.seedrandom('boom');
+      function generateSeed() {
+        var seed = "";
+        for (var i = 0; i<=5; i++) {
+          seed += _.random(0, 9);
+        }
+        return seed;
+      }
       var shuffle = function() {
+        // 6 Hues to be used
         var h = _.random(0, 360);
         var H = _.map([0, 30, 60, 180, 210, 240], function(offset){
           return (h + offset) % 360;
@@ -48,14 +55,27 @@
           var key = 'base0' + k.toString(16);
           $('.' + key).css('color', color);
           $('.' + key + '-background').css('background-color', color);
-          params.push(key + '=' + color);
+          params.push(key + '=' + color.substring(1));
         }
         var url = 'http://base16-api.herokuapp.com/vim?' + params.join('&');
         $('#vim').attr('href', url);
         $('body').css('background-color', $.husl.toHex(H[0], backS, 5));
       };
-      $(document).ready(shuffle);
-      $(document).delegate('#shuffle', 'click', shuffle);
+      $(document).ready(function() {
+        if (window.location.hash === '') {
+          $('#shuffle').click();
+        } else {
+          Math.seedrandom(window.location.hash.substring(1));
+          shuffle();
+        }
+      });
+      $(document).delegate('#shuffle', 'click', function() {
+        var seed = generateSeed();
+        window.location.hash = seed;
+        Math.seedrandom(seed);
+        shuffle();
+      });
+
     </script>
   </head>
   <body>
