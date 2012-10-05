@@ -102,7 +102,6 @@ task 'build', 'Build docs', ->
   console.log "Building js/main.js"
   exec "#{coffee} --compile --output js docs/main.coffee", (err, stdout, stderr) ->
     throw err if err
-    console.log stdout + stderr
     console.log "Building css/main.css"
     exec "#{stylus} < docs/main.styl > css/main.css", (err, stdout, stderr) ->
       throw err if err
