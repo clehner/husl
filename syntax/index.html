@@ -6,7 +6,7 @@
     <style type="text/css" media="screen">
       body { margin: 5% 20%; background-color: black; }
       .scheme, .author, pre, .block { font-family: "menlo", monospace; }
-  	  .block { display: inline-block; font-size: 13px; font-weight: bold; padding: 15px; margin: 0 5px 10px 0; }
+  	  .block { display: inline-block; font-size: 13px; font-weight: bold; padding: 10px; margin: 0 5px 10px 0; }
   	  pre {
   	    font-size: 14px;
   	    padding: 10px 20px;
@@ -19,39 +19,36 @@
     <script>
       //Math.seedrandom('boom');
       var shuffle = function() {
-        var p1 = _.random(0, 360);
-        var p2 = (p1 + 30) % 360;
-        var p3 = (p2 + 30) % 360;
-        var c1 = (p1 + 180) % 360;
-        var c2 = (c1 + 30) % 360;
-        var c3 = (c2 + 30) % 360;
-        var H = _.shuffle([p1, p2, p3, c1, c2, c3]);
-        // Lightness difference between darkest and lightest color
-        var minL = _.random(0, 10);
-        var maxL = _.random(95, 100);
-        var contrast = maxL - minL;
+        var h = _.random(0, 360);
+        var H = _.map([0, 30, 60, 180, 210, 240], function(offset){
+          return (h + offset) % 360;
+        });
+        // 8 shades of low-saturated color (background)
         var backS = _.random(5, 40);
+        var darkL = _.random(0, 10);
+        var rangeL = 60 - darkL;
+        data = [];
+        for (var i = 0; i <= 7; i++) {
+          data.push($.husl.toHex(H[0], backS, darkL + rangeL * (i + 1)/8));
+        }
+        // 8 Random shades
         var minS = _.random(30, 70);
         var maxS = minS + 30;
-        var S = [_.random(minS, maxS), _.random(minS, maxS), _.random(minS, maxS)];
         var minL2 = _.random(50, 80);
         var maxL2 = minL2 + 10;
-        var L = [_.random(minL2, maxL2), _.random(minL2, maxL2), _.random(minL2, maxL2)];
-        data = {};
-        for (var i = 0; i <= 7; i++) {
-          data['base0' + i] = $.husl.toHex(H[0], backS, minL + contrast * (i + 1)/8);
-        }
         for (var j = 8; j <= 15; j++) {
           var h = H[_.random(0, 5)];
-          var s = S[_.random(0, 2)];
-          var l = L[_.random(0, 2)];
-          data['base0' + j.toString(16)] = $.husl.toHex(h, s, l);
+          var s = _.random(minS, maxS);
+          var l = _.random(minL2, maxL2);
+          data.push($.husl.toHex(h, s, l));
         }
         var url = 'http://base16-api.herokuapp.com/vim?';
-        for (key in data) {
-          $('.' + key).css('color', data[key]);
-          $('.' + key + '-background').css('background-color', data[key]);
-          url += key + '=' + data[key] + '&';
+        for (var k = 0; k <= 15; k++) {
+          var color = data[k];
+          var key = 'base0' + k.toString(16);
+          $('.' + key).css('color', color);
+          $('.' + key + '-background').css('background-color', color);
+          url += key + '=' + color + '&';
         }
         $('body').css('background-color', $.husl.toHex(H[0], backS, 5));
         $('#vim').attr('href', url);
@@ -65,25 +62,6 @@
     <a href="#" id="vim">Download color scheme for Vim</a>
     <br/>
     <br/>
-    <div>
-      <div class="block base00-background base07">00</div>
-      <div class="block base01-background base07">01</div>
-      <div class="block base02-background base07">02</div>
-      <div class="block base03-background base07">03</div>
-      <div class="block base04-background base00">04</div>
-      <div class="block base05-background base00">05</div>
-      <div class="block base06-background base00">06</div>
-      <div class="block base07-background base00">07</div>
-      <br />
-      <div class="block base08-background base07">08</div>
-      <div class="block base09-background base07">09</div>
-      <div class="block base0A-background base07">0A</div>
-      <div class="block base0B-background base07">0B</div>
-      <div class="block base0C-background base07">0C</div>
-      <div class="block base0D-background base07">0D</div>
-      <div class="block base0E-background base07">0E</div>
-      <div class="block base0F-background base07">0F</div>
-    </div>
     <div>
       <pre class="base00-background base05">
 <span class="base0E">require</span> <span class="base0B">"gem"</span>
