@@ -42,16 +42,17 @@
           var l = _.random(minL2, maxL2);
           data.push($.husl.toHex(h, s, l));
         }
-        var url = 'http://base16-api.herokuapp.com/vim?';
+        var params = [];
         for (var k = 0; k <= 15; k++) {
           var color = data[k];
           var key = 'base0' + k.toString(16);
           $('.' + key).css('color', color);
           $('.' + key + '-background').css('background-color', color);
-          url += key + '=' + color + '&';
+          params.push(key + '=' + color);
         }
-        $('body').css('background-color', $.husl.toHex(H[0], backS, 5));
+        var url = 'http://base16-api.herokuapp.com/vim?' + params.join('&');
         $('#vim').attr('href', url);
+        $('body').css('background-color', $.husl.toHex(H[0], backS, 5));
       };
       $(document).ready(shuffle);
       $(document).delegate('#shuffle', 'click', shuffle);
