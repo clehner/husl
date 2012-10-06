@@ -13,11 +13,17 @@
   	  }
       #explanation {
         margin-left: 10px;
-        color: #666;
+        color: #222;
       }
       #credits {
         margin-left: 10px;
         color: #666;
+      }
+      .well {
+        padding: 10px;
+      }
+      .twitter-share-button {
+        margin-top: 5px;
       }
     </style>
     <script src="../js/jquery-1.7.2.min.js"></script>
@@ -32,31 +38,32 @@
         }
         return seed;
       }
-      var shuffle = function() {
-        // 6 Hues to be used
+      function shuffle() {
+        var data = [];
+        // 6 hues to pick from
         var h = _.random(0, 360);
         var H = _.map([0, 60, 120, 180, 240, 300], function(offset){
           return (h + offset) % 360;
         });
-        // 8 shades of low-saturated color (background)
+        // 8 shades of low-saturated color
         var backS = _.random(5, 40);
         var darkL = _.random(0, 10);
-        var rangeL = 60 - darkL;
-        data = [];
+        var rangeL = 90 - darkL;
         for (var i = 0; i <= 7; i++) {
-          data.push($.husl.toHex(H[0], backS, darkL + rangeL * (i + 1)/8));
+          data.push($.husl.toHex(H[0], backS, darkL + rangeL * Math.pow(i/7, 1.5)));
         }
         // 8 Random shades
         var minS = _.random(30, 70);
         var maxS = minS + 30;
-        var minL2 = _.random(50, 80);
-        var maxL2 = minL2 + 10;
-        for (var j = 8; j <= 15; j++) {
+        var minL = _.random(50, 70);
+        var maxL = minL + 20;
+        for (var j = 0; j <= 7; j++) {
           var h = H[_.random(0, 5)];
           var s = _.random(minS, maxS);
-          var l = _.random(minL2, maxL2);
+          var l = _.random(minL, maxL);
           data.push($.husl.toHex(h, s, l));
         }
+        // Update colors and download links
         var params = [];
         for (var k = 0; k <= 15; k++) {
           var color = data[k];
@@ -68,7 +75,8 @@
         params = params.join('&');
         $('#vim').attr('href', 'http://base16-api.herokuapp.com/vim?' + params);
         $('#textmate').attr('href', 'http://base16-api.herokuapp.com/textmate?' + params);
-        $('body').css('background-color', $.husl.toHex(H[0], backS, 5));
+        $('body').css('background-color', $.husl.toHex(H[0], backS, 3));
+        $('.well').css('background-color', $.husl.toHex(H[0], backS, 85));
       };
       $(document).ready(function() {
         if (window.location.hash === '') {
@@ -88,10 +96,10 @@
     </script>
   </head>
   <body>
-    <div>
+    <div class="well">
     <button class="btn btn-inverse" id="shuffle">Shuffle</button>
     <span id="explanation">Uses <a href="http://boronine.com/husl"><em>HUSL</em></a> to generate well-behaved colors</span>
-    <!--<a href="https://twitter.com/share" class="twitter-share-button pull-right" data-lang="en" data-url="http://boronine.com/husl/syntax" data-via="boronine">Tweet</a>-->
+    <a href="https://twitter.com/share" class="twitter-share-button pull-right" data-lang="en" data-url="http://boronine.com/husl/syntax" data-via="boronine">Tweet</a>
     </div>
     <br/>
     <div>
