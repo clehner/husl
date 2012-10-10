@@ -307,9 +307,9 @@ $('#rainbow-hsl div').each(function(index) {
         <div class="span8">
           <p><abbr class="initialism">HUSL</abbr> is written in CoffeeScript, you can use it server-side with <code>npm install husl</code> or client-side as a jQuery plugin&nbsp;(<code>$.husl</code>).</p>
           <dl>
-            <dt>husl.toHex(hue, saturation, lightness, [rgb = false])</dt>
+            <dt>husl.toHex(hue, saturation, lightness)</dt>
             <dd><i>hue</i> is a number between 0 and 360, <i>saturation</i> and <i>lightness</i> are numbers between 0 and 100. This function returns the resulting color as a hex string.</dd>
-            <dt>husl.toRGB(hue, saturation, lightness, [rgb = false])</dt>
+            <dt>husl.toRGB(hue, saturation, lightness)</dt>
             <dd>Like above, but returns an array of 3 numbers between 0 and 1, for each RGB channel.</dd>
             <dt>husl.fromHex(hex)</dt>
             <dd>Takes a hex string and returns the <abbr class="initialism">HUSL</abbr> color as defined above.</dd>
