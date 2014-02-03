@@ -19,9 +19,10 @@
     "stylus": "*",
     "eco": "*",
     "mocha": "*",
-    "imagediff": "*"
+    "imagediff": "*",
+    "uglify-js": "*"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script"
+    "test": "mocha test/test.coffee --compilers coffee:coffee-script/register"
   }
 }

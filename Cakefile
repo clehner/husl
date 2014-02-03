@@ -1,16 +1,19 @@
 {exec} = require 'child_process'
 
+require 'coffee-script'
+
 fs  = require 'fs'
 Png = require('png').Png
 Buffer = require('buffer').Buffer
 meta = require './package.json'
 
-husl = require './husl.coffee'
+husl = require './husl'
 colorspaces = require 'colorspaces'
 onecolor = require 'onecolor'
 
 coffee = "./node_modules/coffee-script/bin/coffee"
 stylus = "./node_modules/stylus/bin/stylus"
+uglify = "./node_modules/uglify-js/bin/uglifyjs"
 eco = require 'eco'
 
 task 'build:docs-images', 'Generate images', ->

@@ -1,5 +1,7 @@
+require 'coffee-script'
+
 assert = require 'assert'
-husl = require '../husl.coffee'
+husl = require '../husl'
 meta = require '../package.json'
 {exec} = require 'child_process'
 
@@ -56,5 +58,16 @@ describe 'HUSL', ->
         done()
 
 
+describe 'Fits within RGB ranges', ->
+  it 'should fit', ->
+    for H in (n for n in [0..360] by 5)
+      for S in (n for n in [0..100] by 5)
+        for L in (n for n in [0..100] by 5)
+          RGB = husl.toRGB H, S, L
+          for channel in RGB
+            assert -0.1 <= channel <= 1.1, "HUSL: #{[H, S, L]} -> #{RGB}"
 
+          RGB = husl.p.toRGB H, S, L
+          for channel in RGB
+            assert -0.1 <= channel <= 1.1, "HUSLp: #{[H, S, L]} -> #{RGB}"
 
